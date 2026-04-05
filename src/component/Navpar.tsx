@@ -1,85 +1,111 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 const Navpar = () => {
+  // state عشان نتحكم في الـ Mobile Menu (مفتوح/مقفول)
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // بيانات الروابط في array عشان منكررش كود الـ NavLink
+  const links = [
+    { to: "/", label: "Home", end: true },
+    { to: "/page", label: "Pages" },
+    { to: "/about", label: "About" },
+    { to: "/Learn", label: "Learn" },
+    { to: "/Login", label: "Login" },
+    { to: "/Contribute", label: "Contribute" },
+  ];
+
   return (
+    // sticky top-0 → يفضل ثابت فوق وأنت بتعمل Scroll
+    // z-50 → عشان يظهر فوق أي محتوى تاني
+    // backdrop-blur-md → تأثير التغبيش الزجاجي (Glassmorphism)
+    // border-b → خط رفيع بيفصل الهيدر عن الصفحة
     <header
+      className="sticky top-0 z-50 border-b border-border"
       style={{
-        position: "sticky", // يفضل ثابت فوق وأنت بتعمل Scroll
-        top: 0, // مكانه في أول الصفحة من فوق
-        zIndex: 50, // عشان يظهر فوق أي محتوى تاني (الطبقة العلوية)
-        background: "rgba(13,13,15,0.85)", // لون أسود شفاف شوية (85%)
-        backdropFilter: "blur(12px)", // تأثير التغبيش الزجاجي (Glassmorphism)
-        WebkitBackdropFilter: "blur(12px)", // دعم تأثير التغبيش لمتصفحات Safari
-        borderBottom: "1px solid var(--border)", // خط رفيع بيفصل الهيدر عن الصفحة
+        background: "rgba(13,13,15,0.85)",
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
       }}
     >
       <nav
-        style={{
-          maxWidth: "1100px", // أقصى عرض للمحتوى عشان ميسرحش في الشاشات الواسعة
-          margin: "0 auto", // سنترة الـ Navbar في نص الشاشة
-          padding: "0 24px", // مسافة أمان (Margin داخلي) من اليمين والشمال
-          height: "60px", // طول ثابت للهيدر
-          display: "flex", // استخدام نظام الـ Flexbox لتوزيع العناصر
-          alignItems: "center", // توسيط العناصر عمودياً
-          justifyContent: "space-between", // الشعار في طرف واللينكات في الطرف التاني
-        }}
+        // max-w-5xl mx-auto → سنتر الـ Navbar في نص الشاشة
+        // px-4 md:px-6 → padding جانبي أصغر على الموبيل
+        // h-[60px] → طول ثابت للهيدر
+        // flex items-center justify-between → الشعار في طرف واللينكات في الطرف التاني
+        className="max-w-5xl mx-auto px-4 md:px-6 h-[60px] flex items-center justify-between"
       >
-        {/* اللوجو (Logo) */}
+        {/* اللوجو */}
+        {/* select-none → عشان محدش يقدر يحدد النص */}
         <span
-          style={{
-            fontFamily: "'DM Serif Display', serif", // نوع الخط الفخم بتاع اللوجو
-            fontSize: "1.25rem",
-            color: "var(--text)", // لون النص الأساسي من المتغيرات
-            letterSpacing: "-0.03em", // تضييق المسافات بين الحروف لشكل احترافي
-            userSelect: "none", // عشان محدش يقدر يحدد النص (Text Highlight)
-          }}
+          className="text-xl select-none tracking-tight text-white"
+          style={{ fontFamily: "'DM Serif Display', serif" }}
         >
-          react<span style={{ color: "var(--accent)" }}>docs</span>{" "}
-          {/* كلمة docs بلون مختلف */}
+          react
+          <span style={{ color: "var(--accent)" }}>docs</span>
         </span>
 
-        {/* قائمة الروابط (Links List) */}
-        <ul
-          style={{
-            display: "flex", // رص اللينكات جنب بعض
-            alignItems: "center",
-            gap: "4px", // مسافة صغيرة بين كل لينك والثاني
-            listStyle: "none", // نشيل النقط اللي بتبقى جنب الـ li
-          }}
-        >
-          {/* عملنا Array فيها البيانات عشان منكررش كود الـ NavLink كذا مرة */}
-          {[
-            { to: "/", label: "Home", end: true },
-            { to: "/page", label: "Pages" },
-            { to: "/about", label: "About" },
-            { to: "/Learn", label: "Learn" },
-            { to: "/Login", label: "Login" },
-            { to: "/Contribute", label: "Contribute" },
-          ].map(({ to, label, end }) => (
+        {/* روابط الديسكتوب */}
+        {/* hidden md:flex → بتختفي على الموبيل وتظهر على الديسكتوب */}
+        <ul className="hidden md:flex items-center gap-1 list-none">
+          {links.map(({ to, label, end }) => (
             <li key={to}>
               <NavLink
                 to={to}
-                end={end} // لو المسار "/" ميبقاش "Active" إلا لو إحنا في الهوم بالظبط
-                style={({ isActive }) => ({
-                  display: "inline-block",
-                  padding: "6px 14px", // مساحة ضغط مريحة للينك
-                  borderRadius: "10px", // حواف ناعمة للخلفية
-                  fontSize: "16px",
-                  fontWeight: 600,
-                  textDecoration: "none", // نشيل الخط اللي تحت اللينك
-                  transition: "all 0.3s ease", // حركة ناعمة لما اللون يتغير
-
-                  /* هنا السحر: لو اللينك هو اللي مفتوح (isActive) بنغير لونه وخلفيته */
-                  color: isActive ? "var(--accent)" : "var(--text-dim)",
-                  background: isActive ? "var(--accent-soft)" : "transparent",
-                })}
+                end={end}
+                // isActive → لو اللينك هو اللي مفتوح بنغير لونه وخلفيته
+                className={({ isActive }) =>
+                  `inline-block px-4 py-1.5 rounded-xl text-sm font-semibold no-underline transition-all
+                  ${
+                    isActive
+                      ? "text-accent bg-accent/10" // اللينك الـ Active
+                      : "text-text-dim hover:text-white" // اللينكات العادية
+                  }`
+                }
               >
                 {label}
               </NavLink>
             </li>
           ))}
         </ul>
+
+        {/* زرار الـ Hamburger Menu على الموبيل بس */}
+        {/* md:hidden → بيختفي على الديسكتوب */}
+        <button
+          className="md:hidden text-white text-2xl p-1"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {/* لو مفتوح يعرض X، لو مقفول يعرض الـ hamburger */}
+          {menuOpen ? "✕" : "☰"}
+        </button>
       </nav>
+
+      {/* الـ Mobile Menu */}
+      {/* md:hidden → موجود على الموبيل بس */}
+      {/* بيظهر ويختفي بناءً على الـ menuOpen state */}
+      {menuOpen && (
+        <div className="md:hidden border-t border-border px-4 py-3 flex flex-col gap-1">
+          {links.map(({ to, label, end }) => (
+            <NavLink
+              key={to}
+              to={to}
+              end={end}
+              // لما المستخدم يضغط على لينك الـ Menu بيقفل أوتوماتيك
+              onClick={() => setMenuOpen(false)}
+              className={({ isActive }) =>
+                `block px-4 py-2.5 rounded-xl text-sm font-semibold no-underline transition-all
+                ${
+                  isActive
+                    ? "text-accent bg-accent/10"
+                    : "text-text-dim hover:text-white"
+                }`
+              }
+            >
+              {label}
+            </NavLink>
+          ))}
+        </div>
+      )}
     </header>
   );
 };

@@ -1,11 +1,10 @@
 const Home = () => {
   return (
-    <div style={{ paddingTop: "40px" }}>
+    <div style={{ paddingTop: "40px" }} className="pt-8 md:pt-10">
       {/* Badge */}
       <div
+        className="inline-flex items-center gap-1.5  border border-accent/20 rounded-full px-4 py-1 text-xs text-accent font-medium mb-7 tracking-wide"
         style={{
-          display: "inline-flex",
-          alignItems: "center",
           gap: "6px",
           background: "var(--accent-soft)",
           border: "1px solid var(--accent-glow)",
@@ -19,6 +18,7 @@ const Home = () => {
         }}
       >
         <span
+          className="w-1.5 h-1.5 rounded-full"
           style={{
             width: 6,
             height: 6,
@@ -32,6 +32,7 @@ const Home = () => {
 
       {/* Headline */}
       <h1
+        className="text-4xl md:text-6xl text-white mb-5 max-w-xl leading-tight"
         style={{
           color: "var(--text)",
           marginBottom: "20px",
@@ -44,6 +45,7 @@ const Home = () => {
       </h1>
 
       <p
+        className="text-text-dim text-sm md:text-base max-w-lg leading-relaxed mb-8"
         style={{
           color: "var(--text-dim)",
           fontSize: "16px",
@@ -58,7 +60,7 @@ const Home = () => {
       </p>
 
       {/* CTA row */}
-      <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+      <div className="text-center flex flex-col sm:flex-row gap-3">
         <a
           href="/Learn"
           style={{
@@ -79,18 +81,7 @@ const Home = () => {
         </a>
         <a
           href="/about"
-          style={{
-            display: "inline-block",
-            padding: "11px 24px",
-            background: "transparent",
-            color: "var(--text-dim)",
-            border: "1px solid var(--border-hover)",
-            borderRadius: "10px",
-            fontSize: "14px",
-            fontWeight: 500,
-            textDecoration: "none",
-            transition: "border-color 0.2s, color 0.2s",
-          }}
+          className="inline-block text-center px-6 py-2.5 bg-transparent text-text-dim border border-border hover:border-accent hover:text-white rounded-xl text-sm font-medium no-underline transition-all"
           onMouseOver={(e) => {
             {
               /*هنا لما المستخدم بيقف علي الزر اللون بيتغير */
@@ -112,21 +103,15 @@ const Home = () => {
 
       {/* Divider */}
       <div
+        className=" my-12"
         style={{
           height: "1px",
           background: "var(--border)",
-          margin: "64px 0 48px",
         }}
       />
 
       {/* Feature cards */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          gap: "16px",
-        }}
-      >
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {[
           {
             icon: "⬡",
