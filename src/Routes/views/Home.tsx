@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Home = () => {
   return (
     <div style={{ paddingTop: "40px" }} className="pt-8 md:pt-10">
@@ -61,8 +63,8 @@ const Home = () => {
 
       {/* CTA row */}
       <div className="text-center flex flex-col sm:flex-row gap-3">
-        <a
-          href="/Learn"
+        <Link
+          to="/Learn"
           style={{
             display: "inline-block",
             padding: "11px 24px",
@@ -78,9 +80,9 @@ const Home = () => {
           onMouseOut={(e) => (e.currentTarget.style.opacity = "1")}
         >
           Learn React →
-        </a>
-        <a
-          href="/about"
+        </Link>
+        <Link
+          to="/about"
           className="inline-block text-center px-6 py-2.5 bg-transparent text-text-dim border border-border hover:border-accent hover:text-white rounded-xl text-sm font-medium no-underline transition-all"
           onMouseOver={(e) => {
             {
@@ -98,7 +100,7 @@ const Home = () => {
           }}
         >
           About
-        </a>
+        </Link>
       </div>
 
       {/* Divider */}
